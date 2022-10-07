@@ -24,7 +24,7 @@ st.set_page_config(layout= 'wide')
 
 #IMPORTAMOS LAS BASES DE DATOS 
 consolidado=pd.read_csv('consolidadohurto.csv',sep=";",low_memory=False)
-moto=pd.read_csv('hurto_moto.csv',sep=";",low_memory=False)
+moto=pd.read_csv('hurto_moto1.csv',sep=";",low_memory=False)
 carro=pd.read_csv('hurto_carro.csv',sep=";",low_memory=False)
 residencia=pd.read_csv('hurto_residencia.csv',sep=";", low_memory=False)
 
