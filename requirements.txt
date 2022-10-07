@@ -3,6 +3,8 @@ plotly
 streamlit
 datetime
 openpyxl
-Pydeck
+Pydeck <3.5
+Pillow
+streamlit_option_menu
 
 
