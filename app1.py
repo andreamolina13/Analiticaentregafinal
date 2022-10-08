@@ -24,13 +24,13 @@ st.set_page_config(layout= 'wide')
 
 #IMPORTAMOS LAS BASES DE DATOS 
 consolidado=pd.read_csv('consolidadohurto.csv',sep=";",low_memory=False)
-moto=pd.read_csv('hurto_moto1.csv',sep=";",low_memory=False)
+moto=pd.read_csv('hurto_moto1.csv',low_memory=False)
 carro=pd.read_csv('hurto_carro.csv',sep=";",low_memory=False)
 residencia=pd.read_csv('hurto_residencia.csv',sep=";", low_memory=False)
 
 moto=moto.replace({'Sin dato': np.nan})#ORGANIZAMOS LOS NULOS 
 moto['fecha_hecho']= pd.to_datetime(moto['fecha_hecho'])#ORGANIZAMOS EL FORMATO DE LA FECHA 
-moto.drop(['ocupacion','estado_civil','sede_receptora','medio_transporte','conducta_especial','unidad_medida', 'permiso','nivel_academico', 'actividad_delictiva','parentesco', 'actividad_delictiva','codigo_barrio', 'grupo_actor', 'discapacidad', 'grupo_especial', 'fecha_ingestion,,','caracterizacion', 'articulo_penal', 'testigo', 'categoria_penal'], axis = 1, inplace = True)
+moto.drop(['ocupacion','estado_civil','sede_receptora','medio_transporte','conducta_especial','unidad_medida', 'permiso','nivel_academico', 'actividad_delictiva','parentesco', 'actividad_delictiva','codigo_barrio', 'grupo_actor', 'discapacidad', 'grupo_especial', 'fecha_ingestion','caracterizacion', 'articulo_penal', 'testigo', 'categoria_penal'], axis = 1, inplace = True)
 #FUNCION PARA ORGANIZAR LAS EDADES 
 def funcion3(x):
  if x < 18:
@@ -191,9 +191,9 @@ if menu== "Problematica":
     from PIL import Image
     
     delito=Image.open('Imagen1.jpg')
-    st.image(delito, width=800)
+    st.image(delito, width=900)
     
-    st.info('Colombia es uno de los paises con los indices de criminalidad mas altos del mundo.Medellin es una de las ciudades donde mas hurtos se dan dia a dia,esta es una problematica social que afecta el ')
+    st.info('Colombia es uno de los paises con los indices de criminalidad mas altos del mundo.Medellin es una de las ciudades donde mas hurtos se dan dia a dia,esta es una problematica social que afecta el crecimiento social y economico.')
     
 
     
@@ -201,11 +201,11 @@ if menu== "Problematica":
     #Agrupamos 
     con=consolidado.groupby(['Conducta'])[['Cantidad_casos']].count().reset_index().rename(columns={'Conducta':'Conducta delictiva'})
     con=con.sort_values('Cantidad_casos', ascending=False)
-    fig= px.bar(con, x='Conducta delictiva', y='Cantidad_casos', title= '<b>Conducta delictiva<b>',width=550, height= 470)
+    fig= px.bar(con, x='Conducta delictiva', y='Cantidad_casos', title= '<b>Conducta delictiva<b>',width=950, height= 570)
     fig.update_layout(
     xaxis_title='Conducta',
     yaxis_title='Cantidad',
-    template= 'simple_white', #color del fondo 
+    template= 'simple_white',  
     title_x=0.5,)
     st.plotly_chart(fig)
     
