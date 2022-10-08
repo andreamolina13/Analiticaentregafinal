@@ -234,18 +234,14 @@ if menu== "Problematica":
 
 elif menu == "Hurto de carro🚗":
     #AGREGAMOS TITULO
-    st.markdown("<h1 style ='text-align: center; color:#337AFF;'>Analisis de hurtos de carro en la ciudad de Medellin👤💰🔫 </h1>", unsafe_allow_html =True)
-
-    
-#REALIZAMOS GRAFICOS  cantidad de casos por año 
-    st.markdown("<h3 style ='text-align: center; color:black;'>Hurtos de carro por año</h1>", unsafe_allow_html =True)
-    st.info('Se puede observar en general que en los ultimos años ha disminuido los hurtos a carros, en el año 2003 los hurtos alcanzaban casi los 7000 por año, una cifra alarmante ya que generalmente el robo de autos es para la comercialización de autopartes y cometer otros crímenes por lo que se tomaron medidas por parte de la policia para reducir estos hurtos lo que ha logrado que haya una disminucion en estos hurtos hasta alcanzar una cantidad de hurtos denunciados, en el 2021 de aproximadamente 800. Aunque se debe tener presente que estos son solo los hurtos denunciados a la policia por lo que hay una gran cantidad de hurtos que no son reportados los cuales podrian aumentar estas cifras.')
+    st.markdown("<h1 style ='text-align: center; color:#337AFF;'> Analisis de hurtos de carro en la ciudad de Medellin👤💰🔫 </h1>", unsafe_allow_html =True)
+    st.markdown("<h3 style ='text-align: center; color:black;'> Cantidad de robos por año</h1>", unsafe_allow_html =True)
     c4,c5 = st.columns((1,1))
     C1=carro.groupby(['año_hecho'])[['cantidad']].sum().reset_index()
-    fig= px.bar(C1, x='año_hecho', y='cantidad',title='Cantidad de hurtos de carro por año', width=370, height= 370)
+    fig= px.bar(C1, x='año_hecho', y='cantidad',title='Cantidad de robos de carro por año', width=370, height= 370)
     fig.update_layout(
     xaxis_title='Año',
-    yaxis_title='Cantidad de hurtos',
+    yaxis_title='Cantidad de robos',
     template= 'simple_white', 
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
@@ -262,22 +258,23 @@ elif menu == "Hurto de carro🚗":
     # Crecimiento de la cantidad de hurtos de carro 
     dm2 =C1=carro.groupby(['fecha_hecho'])[['cantidad']].sum().reset_index()
     dm2.iloc[:,1:]= dm2.iloc[:,1:].cumsum()
-    fig1= px.line(dm2, x='fecha_hecho', y ='cantidad', title = '<b>Crecimiento de la cantidad de hurtos de carro<b>', width=400, height= 400,
+    fig1= px.line(dm2, x='fecha_hecho', y ='cantidad', title = '<b>Crecimiento de la cantidad de robos de carro<b>', width=400, height= 400,
               color_discrete_sequence=px.colors.qualitative.G10)
     fig1.update_layout(
       template = 'simple_white',
       title_x = 0.5,
       legend_title = 'Hurtos A:',
       xaxis_title = '<b>Fecha<b>',
-      yaxis_title = '<b>Cantidad de hurtos<b>',)
+      yaxis_title = '<b>Cantidad de robos<b>',)
     c5.plotly_chart(fig1)   
+    st.info(' Se puede observar en general que en los ultimos años ha disminuido los robos a carros, en el año 2003 los robos alcanzaban casi los 7000 por año, una cifra alarmante ya que generalmente el robo de autos es para la comercialización de autopartes y cometer otros crímenes por lo que se tomaron medidas por parte de la policia para reducir estos robos lo que ha logrado que haya una disminucion en estos robos hasta alcanzar una cantidad de robos denunciados, en el 2021 de aproximadamente 800. Aunque se debe tener presente que estos son solo los robos denunciados a la policia por lo que hay una gran cantidad de robos que no son reportados los cuales podrian aumentar estas cifras.Apesar de eso observamos en la grafica de los robos de carro acumulada esta en tendencia de crecimiento.')
 
     
     
     
     
     #GRAFICO CANTIDAD DE HURTO POR DIAS
-    st.markdown("<h3 style ='text-align: center; color:black;'>Cantidad de hurtos de carro por dia</h1>", unsafe_allow_html =True)
+    st.markdown("<h3 style ='text-align: center; color:black;'>Cantidad de robos de por dia</h1>", unsafe_allow_html =True)
     c6,c7 = st.columns((1,1))
     C2=carro.groupby(['dia_hecho'])[['cantidad']].count().reset_index()
     C2['orden']=C2['dia_hecho'].replace({'Monday': 1 , 'Tuesday': 2, 'Wednesday': 3, 'Thursday': 4 , 'Friday':5, 'Saturday': 6, 'Sunday':7})
@@ -285,7 +282,7 @@ elif menu == "Hurto de carro🚗":
     fig= px.bar(C2, x='dia_hecho', y='cantidad',color_discrete_sequence=px.colors.qualitative.Dark2, width=400, height= 400)
     fig.update_layout(
     xaxis_title='Dia',
-    yaxis_title='Cantidad de hurtos',
+    yaxis_title='Cantidad de robos',
     template= 'simple_white',
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
@@ -296,7 +293,7 @@ elif menu == "Hurto de carro🚗":
             x=0.7))
     c7.plotly_chart(fig)
     c6.markdown('                           ')
-    c6.info('Como podemos observar todos los dias en la semana se presentan gran cantidad de hurtos de vehiculos, en general no se encuentra un patron en los dias de la semana con respecto al hurto, pero se resalta que el dia donde mas se presentan los hurtos es el Miercoles.')
+    c6.info('Como podemos observar todos los dias en la semana se presentan gran cantidad de robos de vehiculos, en general no se encuentra un patron en los dias de la semana con respecto al robo, pero se resalta que el dia donde mas se presentan los robos es el Miercoles.')
     
     
     
@@ -304,16 +301,16 @@ elif menu == "Hurto de carro🚗":
     
     
     #GRAFICAMOS LA PARTICIPACION DE LAS ARMAS USADAS PARA EL HURTO 
-    st.markdown("<h3 style ='text-align: center; color:black;'>Analisis del tipo de arma usada para el hurto</h1>", unsafe_allow_html =True)
+    st.markdown("<h3 style ='text-align: center; color:black;'>Analisis del tipo de arma usada para el robo</h1>", unsafe_allow_html =True)
     c8,c9, = st.columns((1,1)) 
     C3=carro.groupby(['arma_medio'])[['cantidad']].count().reset_index()
-    fig=px.pie(C3, values='cantidad', names= 'arma_medio', title='<b>Armas usadas en los hurtos a carros<b>', width=400, height= 400)
+    fig=px.pie(C3, values='cantidad', names= 'arma_medio', title='<b>Armas usadas en los robos a carros<b>', width=400, height= 400)
     fig.update_layout(
     template= 'simple_white', 
     legend_title='Tipo de Arma', 
     title_x=0.5,) 
     c8.plotly_chart(fig)
-    c9.info('Aca encontramos los porcentajes de participacion de las armas usadas para realizar los hurtos, como podemos observar las armas de fuego son las mas usadas para este tipo de hurto, lo que es preocupante ya que el uso y porte de armas es ilegal en Colombia por el el decreto 1873 del 30 de diciembre de 2021 que restringe el porte de armas en todo el territorio nacional y compete a las fuerzas del estado cómo únicas autorizadas para portar, expedir y generar los permisos respectivos.')
+    c9.info('Aca encontramos los porcentajes de participacion de las armas usadas para realizar los robos, como podemos observar las armas de fuego son las mas usadas para este tipo de robo, lo que es preocupante ya que el uso y porte de armas es ilegal en Colombia por el el decreto 1873 del 30 de diciembre de 2021 que restringe el porte de armas en todo el territorio nacional y compete a las fuerzas del estado cómo únicas autorizadas para portar, expedir y generar los permisos respectivos.')
     
     
     
@@ -322,29 +319,29 @@ elif menu == "Hurto de carro🚗":
 
     
     #GRAFICO CANTIDAD DE HURTO POR CATEGORIA VEHICULO
-    st.markdown("<h3 style ='text-align: center; color:black;'>categorias de los vehiculos hurtados</h1>", unsafe_allow_html =True)
+    st.markdown("<h3 style ='text-align: center; color:black;'>categorias de los vehiculos robados</h1>", unsafe_allow_html =True)
     C9=carro.groupby(['categoria_bien'])[['cantidad']].count().reset_index()
     cantidad=carro['cantidad'].count() 
-    fig=px.pie(C9, values='cantidad', names='categoria_bien',hole=.5,title='%ede hurtos por categoria')
+    fig=px.pie(C9, values='cantidad', names='categoria_bien',hole=.5,title='% de robos por categoria')
     fig.update_layout(
     template= 'simple_white', 
     legend_title='Categorias', 
     title_x=0.5, #ubicacion del titulo,
     annotations = [dict(text = str(cantidad), x=0.5, y = 0.5, font_size = 40, showarrow = False )])
     st.plotly_chart(fig)
-    st.info('Aca podemos observar que mas del 70% de los vehiculos que se hurtan son automovil, esto se explica ya que según la información de la Secretaría de Movilidad de Medellín, el parque automotor que circula en el Valle de Aburrá, sumando carros y motos, es de 1.464.328. Este valor se desagrega en 589.463 vehiculos estos representan el 40% del parque automotor.')
+    st.info('Aca podemos observar que mas del 70% de los vehiculos que se roban son automovil, esto se explica ya que según la información de la Secretaría de Movilidad de Medellín, el parque automotor que circula en el Valle de Aburrá, sumando carros y motos, es de 1.464.328. Este valor se desagrega en 589.463 vehiculos estos representan el 40% del parque automotor.')
 
  
 
 
     #GRAFICO DE LA CANTIDAD DE HURTOS POR MODALIDAD 
-    st.markdown("<h3 style ='text-align: center; color:black;'>Cantidad de hurtos por modalidad de hurto</h1>", unsafe_allow_html =True)
+    st.markdown("<h3 style ='text-align: center; color:black;'>Cantidad de robos por modalidad</h1>", unsafe_allow_html =True)
     c47,c48 = st.columns((1,1))
     C8=carro.groupby(['modalidad'])[['cantidad']].count().sort_values('cantidad',ascending=False).reset_index()
     fig= px.bar(C8, x='modalidad', y='cantidad', width=450, height= 400,color_discrete_sequence=px.colors.qualitative.Light24)
     fig.update_layout(
     xaxis_title='modalidad',
-    yaxis_title='Cantidad de hurtos',
+    yaxis_title='Cantidad de robo',
     template= 'simple_white',
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
@@ -354,71 +351,66 @@ elif menu == "Hurto de carro🚗":
             xanchor="left",
             x=0.7))
     c48.plotly_chart(fig)
-    c47.info('Se puede observar que la modalidad de hurto de carro mas usada es el asalto o atraco esta modalidad de hurto se caracteriza por el uso de la fuerza, la violencia o la intimidación, algunas veces a mano armada y el halado esto quiere decir que el hurto se da cuando sustraen el vehículo del lugar donde se encuentra estacionado.')
+    c47.info('Se puede observar que la modalidad de robo de carro mas usada es el asalto o atraco esta modalidad de robo se caracteriza por el uso de la fuerza, la violencia o la intimidación, algunas veces a mano armada y el halado esto quiere decir que el robo se da cuando sustraen el vehículo del lugar donde se encuentra estacionado.')
     
 
 
     #GRAFICAMOS LOS COLORES DE LOS CARROS HURTADOS
-    st.markdown("<h3 style ='text-align: center; color:black;'>Analisis del color de carro hurtado</h1>", unsafe_allow_html =True)
+    st.markdown("<h3 style ='text-align: center; color:black;'>Analisis del color de vehiculo</h1>", unsafe_allow_html =True)
     c10,c11, = st.columns((1,1))
     C4=carro.groupby(['color'])[['cantidad']].count().reset_index()
-    fig= px.bar(C4, x='color', y='cantidad', title= '<b>Cantidad de carros huertados segun el color<b>',width=400, height= 400,color_discrete_sequence=px.colors.qualitative.Alphabet)
+    fig= px.bar(C4, x='color', y='cantidad', title= '<b>Cantidad de vehiculos robados segun el color<b>',width=400, height= 400,color_discrete_sequence=px.colors.qualitative.Alphabet)
     fig.update_layout(
     xaxis_title='color',
-    yaxis_title='Cantidad de hurtos',
+    yaxis_title='Cantidad de robos',
     template= 'simple_white', #color del fondo 
     title_x=0.5,)
     c10.plotly_chart(fig)
-    c11.info('Analizando el color de los autos encontramos que en su mayoria los autos hurtados son el GRIS y el BlANCO, esto podria explicarse en el comercio autopartes, la mayoria de los autos que son hurtados en la ciudad entran al comercio de las autopartes y  es que según datos extractados del Registro Único Nacional de Transporte (Runt), en la región hay dos tonos de grises que se llevan las preferencias del público: Gris Estrella y Gris Comet. Ambos colores producidos por Renault. El primero registró 2.986 pedidos y el segundo 2.250 en 2018. El tercer lugar lo ocupa el Blanco Galaxia, de Chevrolet, con 2.023 unidades vendidas, seguido por el Plata, de diversas marcas, con 1817 unidades, y el Gris, con 1.791 facturaciones. Por el contrario, tonos como el Azul Dandy, el Bronce Mica, el Verde Amazonia, el Naranja Metálico, el caoba y el Marrón Magnético no son tan populares, pues solo se registró un ejemplar de cada carrocería en estos tonos.')
+    c11.info('Analizando el color de los autos encontramos que en su mayoria los autos robados son el GRIS y el BlANCO, esto podria explicarse en el comercio autopartes, la mayoria de los autos que son robados en la ciudad entran al comercio de las autopartes y  es que según datos extractados del Registro Único Nacional de Transporte (Runt), en la región hay dos tonos de grises que se llevan las preferencias del público: Gris Estrella y Gris Comet. Ambos colores producidos por Renault. El primero registró 2.986 pedidos y el segundo 2.250 en 2018. El tercer lugar lo ocupa el Blanco Galaxia, de Chevrolet, con 2.023 unidades vendidas, seguido por el Plata, de diversas marcas, con 1817 unidades, y el Gris, con 1.791 facturaciones. Por el contrario, tonos como el Azul Dandy, el Bronce Mica, el Verde Amazonia, el Naranja Metálico, el caoba y el Marrón Magnético no son tan populares, pues solo se registró un ejemplar de cada carrocería en estos tonos.')
     
     
     
     #GRAFICAMOS SI LA CANTIDAD DE HURTOS TIENE RELACION CON LA EDAD 
-    st.markdown("<h3 style ='text-align: center; color:black;'>Edad VS Cantidad de hurtos de carro</h1>", unsafe_allow_html =True)
+    st.markdown("<h3 style ='text-align: center; color:black;'>Edad VS Cantidad de robos</h1>", unsafe_allow_html =True)
     C5=carro.groupby(['edad'])[['cantidad']].sum().reset_index()
-    fig = px.scatter(C5, x = 'edad', y ='cantidad', title = '<b>Edad vs Cantidad de hurtos<b>',width=950, height= 550)
+    fig = px.scatter(C5, x = 'edad', y ='cantidad', title = '<b>Edad vs Cantidad de robos de carros<b>',width=950, height= 550)
     fig.update_layout(
     xaxis_title = '<b>Edad<b>',
-    yaxis_title = '<b>Cantidad de hurtos<b>',
+    yaxis_title = '<b>Cantidad de robos<b>',
     template = 'simple_white',
     title_x = 0.5,)
     st.plotly_chart(fig)
-    st.info('Se realiza un analisis de la edad con respecto a la cantidad de hurtos para saber si hay una correlacion estre estas variables y determinar si la edad es un factor relevante en los hurtos, se encuentra que es un factor relevante, ya que a medida de aumenta la edad dismunuyen los hurtos. Esto se podria explicar en que son las personas de edades entre los 18 y 50 años son los que tienen tendecia a usar automoviles, cabe resaltar que la edad donde mas se presentan los hurtos de automoviles es 35 años')
+    st.info('Se realiza un analisis de la edad con respecto a la cantidad de robos para saber si hay una relacion estre estas variables y determinar si la edad es un factor relevante en los robos. Se encuentra que es un factor relevante, ya que a medida de aumenta la edad dismunuyen los robos. Esto se podria explicar en que son las personas de edades entre los 18 y 50 años son los que tienen tendecia a usar automoviles, cabe resaltar que la edad donde mas se presentan los robos de automoviles es 35 años')
     
     
     
     
     
     #GRAFICO CANTIDAD DE HURTO POR SEXO
-    st.markdown("<h3 style ='text-align: center; color:black;'>Cantidad de hurtos por sexo</h1>", unsafe_allow_html =True)
+    st.markdown("<h3 style ='text-align: center; color:black;'>Cantidad de robos por sexo</h1>", unsafe_allow_html =True)
     c40,c41 = st.columns((1,1))
     C7=carro.groupby(['sexo'])[['cantidad']].count().reset_index()
     cantidad=carro['cantidad'].count() 
-    fig=px.pie(C7, values='cantidad', names='sexo',hole=.5,title='%ede hurtos por sexo')
+    fig=px.pie(C7, values='cantidad', names='sexo',hole=.5,title='%ede robos por sexo')
     fig.update_layout(
     template= 'simple_white', 
     legend_title='sexo', 
-    title_x=0.5, #ubicacion del titulo,
+    title_x=0.5, 
     annotations = [dict(text = str(cantidad), x=0.5, y = 0.5, font_size = 40, showarrow = False )])
     st.plotly_chart(fig)
-    st.info('Se analiza el sexo de las personas victimas de hurto y se encuentra que la mayoria de hurtos se da a los hombres, esto podria explicarse ya que segun informacion del RUT de las más de 12 millones de personas en Colombia que tienen su licencia de conducción activa, el  3.176.564 son mujeres (26%) y 8.838.899 son hombres (74%).')
+    st.info('Se analiza el sexo de las personas victimas de robos y se encuentra que la mayoria de robos se da a los hombres, esto podria explicarse ya que segun informacion del RUT de las más de 12 millones de personas en Colombia que tienen su licencia de conducción activa, el  3.176.564 son mujeres (26%) y 8.838.899 son hombres (74%).')
     
     
 elif menu == "Hurto de moto🏍️" :
     #AGREGAMOS TITULO
-    st.markdown("<h1 style ='text-align: center; color:#337AFF;'>Analisis de hurtos de moto en la ciudad de Medellin👤💰🔫 </h1>", unsafe_allow_html =True)
-
-    
-    
-    #REALIZAMOS GRAFICOS  cantidad de casos por anio 
-    st.markdown("<h3 style ='text-align: center; color:black;'>Cantidad de hurtos de moto por año En la ciudad de Medellin </h1>", unsafe_allow_html =True)
-    st.info('El parque automotor de motos en Antioquia en los últimos 10 años a aumentando en un 54% segun el informe de indicadores objetivos sobre cómo vamos en movilidad.En el crecimiento de la cantidad de hurtos a motos podemos observar que en los últimos años se ha comportado de una manera similar a partir del año 2010, en el que el hurto a motos no ha tenido un patron que se pueda establecer.Cabe resaltar que estos hurtos son solo los reportados a la policia por lo que muchos de los hurtos se quedan sin reportar por lo que estas cifras podrian aumentar.')
+    st.markdown("<h1 style ='text-align: center; color:#337AFF;'> Analisis de robos de moto en la ciudad de Medellin👤💰🔫 </h1>", unsafe_allow_html =True)
+    st.markdown("<h3 style ='text-align: center; color:black;'> Cantidad de robos de moto por año en la ciudad de Medellin </h1>", unsafe_allow_html =True)
     c14,c15 = st.columns((1,1))
     M1=moto.groupby(['año_hecho'])[['cantidad']].sum().reset_index()
     fig= px.bar(M1, x='año_hecho', y='cantidad', width=400, height= 400)
     fig.update_layout(
     xaxis_title='Año',
-        yaxis_title='Cantidad de hurtos',
+        yaxis_title='Cantidad de robos',
         template= 'simple_white', 
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)',
@@ -437,21 +429,22 @@ elif menu == "Hurto de moto🏍️" :
     dm2 =M1=moto.groupby(['fecha_hecho'])[['cantidad']].sum().reset_index()
     dm2.iloc[:,1:]= dm2.iloc[:,1:].cumsum()
 
-    fig1= px.line(dm2, x='fecha_hecho', y ='cantidad', title = '<b>Crecimiento de la cantidad de hurtos a moto<b>', width=400, height= 400,
+    fig1= px.line(dm2, x='fecha_hecho', y ='cantidad', title = '<b>Crecimiento de la cantidad de robos a moto<b>', width=400, height= 400,
               color_discrete_sequence=px.colors.qualitative.G10)
     fig1.update_layout(
       template = 'simple_white',
       title_x = 0.5,
       legend_title = 'Hurtos A:',
       xaxis_title = '<b>Fecha<b>',
-      yaxis_title = '<b>Cantidad de hurtos<b>',)
+      yaxis_title = '<b>Cantidad de robos<b>',)
     c15.plotly_chart(fig1)   
-        
+    st.info(' El parque automotor de motos en Antioquia en los últimos 10 años a aumentando en un 54% segun el informe de indicadores objetivos sobre cómo vamos en movilidad.En el crecimiento de la cantidad de robos a motos podemos observar que en los últimos años se ha comportado de una manera similar a partir del año 2010, en el que el robo a motos no ha tenido un patron que se pueda establecer.Cabe resaltar que estos robos son solo los reportados a la policia por lo que muchos de los robos se quedan sin reportar por lo que estas cifras podrian aumentar.')
+
     
     
     
     #GRAFICO CANTIDAD DE HURTO POR DIAS    
-    st.markdown("<h3 style ='text-align: center; color:black;'>Cantidad de hurtos de motos por dia de la semana</h1>", unsafe_allow_html =True)
+    st.markdown("<h3 style ='text-align: center; color:black;'>Cantidad de robos de motos por dia de la semana</h1>", unsafe_allow_html =True)
     c16,c17 = st.columns((1,1))
     M2=moto.groupby(['dia_hecho'])[['cantidad']].count().reset_index()
     M2['orden']=M2['dia_hecho'].replace({'Monday': 1 , 'Tuesday': 2, 'Wednesday': 3, 'Thursday': 4 , 'Friday':5, 'Saturday': 6, 'Sunday':7})
@@ -459,7 +452,7 @@ elif menu == "Hurto de moto🏍️" :
     fig= px.bar(M2, x='dia_hecho', y='cantidad', width=400, height= 400,color_discrete_sequence=px.colors.qualitative.Dark2)
     fig.update_layout(
     xaxis_title='Dia',
-    yaxis_title='Cantidad de hurtos',
+    yaxis_title='Cantidad de robos',
     template= 'simple_white',
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
@@ -469,7 +462,7 @@ elif menu == "Hurto de moto🏍️" :
                 xanchor="left",
                 x=0.7))
     c17.plotly_chart(fig)
-    c16.info('Se puede apreciar que los hurtos de moto tienen mayor incidencia en la semana donde el dia de la semana que mas se dan estos hurtos es el Miercoles esto se debe a que la mayoria de las personas usan la moto como medio de transporte a sus trabajos por lo que la cantidad de motos que se movilizan en las calles en semana es mayor que los fines de semana ya que el dia que menos se dan hurtos de motos son los Sabados.')
+    c16.info('Se puede apreciar que los robos de moto tienen mayor incidencia en la semana donde el dia de la semana que mas se dan estos robos es el Miercoles esto se debe a que la mayoria de las personas usan la moto como medio de transporte a sus trabajos por lo que la cantidad de motos que se movilizan en las calles en semana es mayor que los fines de semana ya que el dia que menos se dan robos de motos son los Sabados.')
         
     
     
@@ -479,27 +472,27 @@ elif menu == "Hurto de moto🏍️" :
     
     
     #GRAFICAMOS LA PARTICIPACION DE LAS ARMAS USADAS PARA EL HURTO 
-    st.markdown("<h3 style ='text-align: center; color:black;'>Tipo de arma usada para el hurto de Motos </h1>", unsafe_allow_html =True)
+    st.markdown("<h3 style ='text-align: center; color:black;'>Tipo de arma usada para el robo </h1>", unsafe_allow_html =True)
     c18,c19, = st.columns((1,1))   
     M3=moto.groupby(['arma_medio'])[['cantidad']].count().reset_index()
-    fig=px.pie(M3, values='cantidad', names= 'arma_medio', title='<b>% de participacion de las armas en los hurtos a motos<b>', width=400, height= 400)
+    fig=px.pie(M3, values='cantidad', names= 'arma_medio', title='<b>% de participacion de las armas en los robos a motos<b>', width=400, height= 400)
     fig.update_layout(
     template= 'simple_white', 
     legend_title='Tipo de Arma', 
     title_x=0.5,)    
     c18.plotly_chart(fig)     
-    c19.info('Se puede observar la participacion de las armas usadas para realizar los hurtos a las motos, donde se encuentra que la llave maestra y el arma de fuego son las que tienen mas del 50% de participacion en  estos. ')
+    c19.info('Se puede observar la participacion de las armas usadas para realizar los robos a las motos, donde se encuentra que la llave maestra y el arma de fuego son las que tienen mas del 50% de participacion en  estos. ')
         
      
         
      #GRAFICO DE LA CANTIDAD DE HURTOS POR MODALIDAD 
-    st.markdown("<h3 style ='text-align: center; color:black;'>Cantidad de hurtos de motos por modalidad de hurto</h1>", unsafe_allow_html =True)
+    st.markdown("<h3 style ='text-align: center; color:black;'>Cantidad de robos de motos por modalidad de hurto</h1>", unsafe_allow_html =True)
     c45,c46 = st.columns((1,1))
     M7=moto.groupby(['modalidad'])[['cantidad']].count().sort_values('cantidad',ascending=False).reset_index()
     fig= px.bar(M7, x='modalidad', y='cantidad', width=400, height= 370,color_discrete_sequence=px.colors.qualitative.Light24)
     fig.update_layout(
      xaxis_title='modalidad',
-     yaxis_title='Cantidad de hurtos',
+     yaxis_title='Cantidad de robos',
      template= 'simple_white',
      paper_bgcolor='rgba(0,0,0,0)',
      plot_bgcolor='rgba(0,0,0,0)',
@@ -509,56 +502,56 @@ elif menu == "Hurto de moto🏍️" :
              xanchor="left",
              x=0.7))
     c46.plotly_chart(fig)
-    c45.info('Se puede observar que las modalidades de hurtos que mas se presentan son el halado, esto quiere decir que el hurto se da cuando sustraen el la moto del lugar donde se encuentra estacionada y el atraco, en esta modalidad de hurto se caracteriza por el uso de la fuerza, la violencia o la intimidación, algunas veces a mano armada .')
+    c45.info('Se puede observar que las modalidades de robos que mas se presentan son el halado, esto quiere decir que el robo se da cuando sustraen el la moto del lugar donde se encuentra estacionada y el atraco, en esta modalidad de robo se caracteriza por el uso de la fuerza, la violencia o la intimidación, algunas veces a mano armada .')
         
         
         
     #GRAFICAMOS LOS COLORES DE LAS MOTOS HURTADAS 
-    st.markdown("<h3 style ='text-align: center; color:black;'>Color de las motos hurtadas</h1>", unsafe_allow_html =True)
+    st.markdown("<h3 style ='text-align: center; color:black;'>Color de las motos </h1>", unsafe_allow_html =True)
     c20,c21, = st.columns((1,1))
     M4=moto.groupby(['color'])[['cantidad']].count().reset_index()
-    fig= px.bar(M4, x='color', y='cantidad', title= '<b>Cantidad de motos huertados segun el color<b>',width=400, height= 400,color_discrete_sequence=px.colors.qualitative.Alphabet)
+    fig= px.bar(M4, x='color', y='cantidad', title= '<b>Cantidad de motos robadas segun el color<b>',width=400, height= 400,color_discrete_sequence=px.colors.qualitative.Alphabet)
     fig.update_layout(
     xaxis_title='color',
-    yaxis_title='Cantidad de hurtos',
+    yaxis_title='Cantidad de robos',
     template= 'simple_white',
     title_x=0.5,)
     c21.plotly_chart(fig) 
     c20.markdown('')
-    c20.info('Analizando el color de las motos encontramos que en su mayoria las motos hurtadas son color NEGRO, esto podria explicarse en el comercio autopartes, la mayoria de las motos  que son hurtadas en la ciudad entran al comercio de las autopartes y este color es uno de los mas comunes en las motos por lo que se encuentra un gran comercio ilegal en ellos.')
+    c20.info('Analizando el color de las motos encontramos que en su mayoria las motos robadas son color NEGRO, esto podria explicarse en el comercio autopartes, la mayoria de las motos  que son robadas en la ciudad entran al comercio de las autopartes y este color es uno de los mas comunes en las motos por lo que se encuentra un gran comercio ilegal en ellos.')
  
         
         
         
     #GRAFICAMOS SI LA CANTIDAD DE HURTOS TIENE RELACION CON LA EDAD 
-    st.markdown("<h3 style ='text-align: center; color:black;'>Edad VS Cantidad de hurtos de moto</h1>", unsafe_allow_html =True)
+    st.markdown("<h3 style ='text-align: center; color:black;'>Edad VS Cantidad de robos</h1>", unsafe_allow_html =True)
     M5=moto.groupby(['edad'])[['cantidad']].sum().reset_index()
-    fig = px.scatter(M5, x = 'edad', y ='cantidad', title = '<b>Edad vs Cantidad de hurtos de moto<b>',width=950, height= 550)
+    fig = px.scatter(M5, x = 'edad', y ='cantidad', title = '<b>Edad vs Cantidad de robos de moto<b>',width=950, height= 550)
     fig.update_layout(
     xaxis_title = '<b>Edad<b>',
     yaxis_title = '<b>Cantidad de hurtos<b>',
     template = 'simple_white',
     title_x = 0.5,) 
     st.plotly_chart(fig)  
-    st.info('Se realiza un analisis de la edad con respecto a la cantidad de hurtos para saber si hay una correlacion estre estas variables y determinar si la edad es un factor relevante en los hurtos, se encuentra que es un factor relevante, aunque observamos que  a medida de aumenta la edad dismunuyen los hurtos. Esto se podria explicar en que son las personas de edades entre los 18 y 40 años son los que tienen tendecia a usar motos, cabe resaltar que la edad de las victimas que mas sufren de estos hurtos son los 25 años.')
+    st.info('Se realiza un analisis de la edad con respecto a la cantidad de robos para saber si hay una relacion entre estas variables y determinar si la edad es un factor relevante en los robos, se encuentra que es un factor relevante, aunque observamos que  a medida de aumenta la edad dismunuyen los robos. Esto se podria explicar en que son las personas de edades entre los 18 y 40 años son los que tienen tendecia a usar motos, cabe resaltar que la edad de las victimas que mas sufren de estos robos son los 25 años.')
     
     
     
     
     
     #GRAFICO CANTIDAD DE HURTO POR SEXO
-    st.markdown("<h3 style ='text-align: center; color:black;'>Cantidad de hurtos de moto por sexo</h1>", unsafe_allow_html =True)
+    st.markdown("<h3 style ='text-align: center; color:black;'>Cantidad de robos por sexo</h1>", unsafe_allow_html =True)
     c38,c39 = st.columns((1,1))
     M6=moto.groupby(['sexo'])[['cantidad']].count().reset_index()
     cantidad=carro['cantidad'].count() 
-    fig=px.pie(M6, values='cantidad', names='sexo',hole=.5,title='% de hurtos por sexo')
+    fig=px.pie(M6, values='cantidad', names='sexo',hole=.5,title='% de robos a motos por sexo')
     fig.update_layout(
     template= 'simple_white', 
     legend_title='Sexo', 
     title_x=0.5, 
     annotations = [dict(text = str(cantidad), x=0.5, y = 0.5, font_size = 40, showarrow = False )])
     st.plotly_chart(fig)
-    st.info('Se analiza el sexo de las personas victimas de hurto y se encuentra que la mayoria de hurtos se da a los hombres, esto podria explicarse ya que segun informacion del RUT de las más de 12 millones de personas en Colombia que tienen su licencia de conducción activa, el 31,8% son mujeres y el 68,2% son hombres.')
+    st.info('Se analiza el sexo de las personas victimas de robos y se encuentra que la mayoria de robos se da a los hombres, esto podria explicarse ya que segun informacion del RUT de las más de 12 millones de personas en Colombia que tienen su licencia de conducción activa, el 31,8% son mujeres y el 68,2% son hombres.')
     
     
     
@@ -571,14 +564,8 @@ elif menu == "Hurto de moto🏍️" :
     
 elif menu== "Hurto a residencia🏡":
     #AGREGAMOS EL TITULO 
-    st.markdown("<h1 style ='text-align: center; color:#337AFF;'>Analisis de hurtos  a residencias  en la ciudad de Medellin👤💰🔫 </h1>", unsafe_allow_html =True)
-
-
-    
-#REALIZAMOS GRAFICOS  cantidad de casos por anio 
-
-    st.markdown("<h3 style ='text-align: center; color:black;'>Cantidad de hurtos por año a residencias</h1>", unsafe_allow_html =True)
-    st.info(' Para el crecimiento de la cantidad de hurtos a residencia se puede observar un comportamiento creciente desde los últimos 7 años, lo cual es congruente con los datos del plan de extensión territorial, donde el número de vivienda también aumentaron debido  a los convenios impulsados por el gobierno para que mas personas pudieran adquirir una vivienda nueva, impulsando el sector de la construcción pero a su vez, contrastando con el aumento de la posibilidad de hurtos, encontrando su pico mas alto en el 2018 fueron casi 5000 al año.')
+    st.markdown("<h1 style ='text-align: center; color:#337AFF;'> Analisis de los robos a residencias  en la ciudad de Medellin👤💰🔫 </h1>", unsafe_allow_html =True)
+    st.markdown("<h3 style ='text-align: center; color:black;'> Cantidad de robos por año a residencias</h1>", unsafe_allow_html =True)
     c24,c25 = st.columns((1,1))
     R1=residencia.groupby(['año_hecho'])[['cantidad']].sum().reset_index()
     fig= px.bar(R1, x='año_hecho', y='cantidad', width=400, height= 400)
@@ -601,7 +588,7 @@ elif menu== "Hurto a residencia🏡":
     # Crecimiento de la cantidad de hurtos a residencias
     dm2 =R1=residencia.groupby(['fecha_hecho'])[['cantidad']].sum().reset_index()
     dm2.iloc[:,1:]= dm2.iloc[:,1:].cumsum()
-    fig1= px.line(dm2, x='fecha_hecho', y ='cantidad', title = '<b>Crecimiento de la cantidad de hurtos a residencias<b>', width=400, height= 400,
+    fig1= px.line(dm2, x='fecha_hecho', y ='cantidad', title = '<b>Crecimiento de la  cantidad de hurtos a residencias<b>', width=400, height= 400,
               color_discrete_sequence=px.colors.qualitative.G10)
     fig1.update_layout(
       template = 'simple_white',
@@ -610,7 +597,8 @@ elif menu== "Hurto a residencia🏡":
       xaxis_title = '<b>Fecha<b>',
       yaxis_title = '<b>Cantidad de hurtos<b>',)
     c25.plotly_chart(fig1)   
-    
+    st.info(' Para el crecimiento de la cantidad de robos a residencia se puede observar un comportamiento creciente desde los últimos 7 años, lo cual es congruente con los datos del plan de extensión territorial, donde el número de vivienda también aumentaron debido  a los convenios impulsados por el gobierno para que mas personas pudieran adquirir una vivienda nueva, impulsando el sector de la construcción pero a su vez, contrastando con el aumento de la posibilidad de hurtos, encontrando su pico mas alto en el 2018 fueron casi 5000 al año.')
+
     
     
     
@@ -618,7 +606,7 @@ elif menu== "Hurto a residencia🏡":
     
     
     #GRAFICO CANTIDAD DE HURTO POR DIAS
-    st.markdown("<h3 style ='text-align: center; color:black;'>Cantidad de hurtos a residencias por dia de la semana</h1>", unsafe_allow_html =True)
+    st.markdown("<h3 style ='text-align: center; color:black;'>Cantidad de robos por dia de la semana</h1>", unsafe_allow_html =True)
     c26,c27 = st.columns((1,1))
     R2=residencia.groupby(['dia_hecho'])[['cantidad']].count().reset_index()
     R2['orden']=R2['dia_hecho'].replace({'Monday': 1 , 'Tuesday': 2, 'Wednesday': 3, 'Thursday': 4 , 'Friday':5, 'Saturday': 6, 'Sunday':7})
@@ -639,17 +627,17 @@ elif menu== "Hurto a residencia🏡":
     c26.markdown('                                     ')
     c26.markdown('                                     ')
     c26.markdown('                                     ')
-    c26.info('Aca se observa la relación de cantidad de hurtos que se presentan según el día de la semana, para este caso se podría afirmar que no hay prevalencia directa con los días, dado que los días de la semana presentan en su mayoría un comportamiento muy similar, sin embargo hay que resaltar que los fines de semana es donde aumentan el numero de hurtos a residencia, esto podria deberse a que las familias sales los fines de semana de paseo y dejan su hogar solo, por lo que se da oportunidad para que se den mas frecuentemente estos hurtos')
+    c26.info('Aca se observa la relación de cantidad de robos que se presentan según el día de la semana, para este caso se podría afirmar que no hay prevalencia directa con los días, dado que los días de la semana presentan en su mayoría un comportamiento muy similar, sin embargo hay que resaltar que los fines de semana es donde aumentan el numero de hurtos a residencia, esto podria deberse a que las familias sales los fines de semana de paseo y dejan su hogar solo, por lo que se da oportunidad para que se den mas frecuentemente estos hurtos')
 
     
 
 
 
     #GRAFICAMOS LA PARTICIPACION DE LAS ARMAS USADAS PARA EL HURTO 
-    st.markdown("<h3 style ='text-align: center; color:black;'>Tipo de arma usada para el hurto</h1>", unsafe_allow_html =True)
+    st.markdown("<h3 style ='text-align: center; color:black;'>Tipo de arma usada para el robo </h1>", unsafe_allow_html =True)
     c28,c29, = st.columns((1,1))
     R3=residencia.groupby(['arma_medio'])[['cantidad']].count().reset_index()
-    fig=px.pie(R3, values='cantidad', names= 'arma_medio', title='<b>% de participacion de las armas en los hurtos<b>', width=400, height= 400)
+    fig=px.pie(R3, values='cantidad', names= 'arma_medio', title='<b>% de participacion de las armas en los robos<b>', width=400, height= 400)
     fig.update_layout(
     template= 'simple_white', 
     legend_title='Tipo de Arma', 
@@ -657,19 +645,20 @@ elif menu== "Hurto a residencia🏡":
     c28.plotly_chart(fig)
     c29.markdown('                                     ')
     c29.markdown('                                     ')
-    c29.info('En el análisis de tipo de arma usada para los hurtos a residencias se encuentra que en la mayor participacion la tiene NINGUN ARMA, esto podria deberse a que la mayoría de los casos cuando se presenta el robo no hay personas presentes o en dado caso, no se dan cuenta sino hasta cuando van a verificar sus pertenencias, como se puede observar los 3 primeros lugares los ocupa: Ningún arma, objeto contundente y palanca, con los cual se puede confirmar lo anterior mencionado debido a que estos son elementos convencionales de robo, y son utilizados para forzar puertas o candados.')
+    c29.info('En el análisis de tipo de arma usada para los robos a residencias se encuentra que en la mayor participacion la tiene NINGUN ARMA, esto podria deberse a que la mayoría de los casos cuando se presenta el robo no hay personas presentes o en dado caso, no se dan cuenta sino hasta cuando van a verificar sus pertenencias, como se puede observar los 3 primeros lugares los ocupa: Ningún arma, objeto contundente y palanca, con los cual se puede confirmar lo anterior mencionado debido a que estos son elementos convencionales de robo, y son utilizados para forzar puertas o candados.')
 
     
 
 
 
     #GRAFICAMOS LAS CATEGORIAS EN LOS BIENES 
-    st.markdown("<h3 style ='text-align: center; color:black;'>Categorias de los Bienes hurtados</h1>", unsafe_allow_html =True)
     c50,c51, = st.columns((1,1))
+    c50.markdown("<h3 style ='text-align: center; color:black;'> Categorias de los Bienes robados</h1>", unsafe_allow_html =True)
+    
     R7=residencia.groupby(['categoria_bien'])[['cantidad']].count().reset_index()
     fig= px.bar(R7, x='categoria_bien', y='cantidad', width=500, height= 400)
     fig.update_layout(
-    xaxis_title='Categoria del Bien hurtado',
+    xaxis_title='Categoria del Bien robado',
     yaxis_title='Cantidad',
     template= 'simple_white',
     paper_bgcolor='rgba(0,0,0,0)',
@@ -684,16 +673,17 @@ elif menu== "Hurto a residencia🏡":
     c50.markdown('                                     ')
     c50.markdown('                                     ')
     c50.markdown('                                     ')
-    c50.info('Podemos observar las categorias de los bienes hurtados en las residencias mas se presenta en los hurtos son: Tencologia, dinero y accesorios del hogar, esto puede deberse a que  estos son los objetos de mayor valor en las residencias.')
+    c50.info('Podemos observar las categorias de los bienes robados en las residencias mas se presenta en los robos son: Tencologia, dinero y accesorios del hogar, esto puede deberse a que  estos son los objetos de mayor valor en las residencias.')
     
     
     #GRAFICAMOS LOS BIENES HURTADOS 
-    st.markdown("<h3 style ='text-align: center; color:black;'>Bienes hurtados en las residencias</h1>", unsafe_allow_html =True)
     c30,c31, = st.columns((1,1))
+    c30.markdown("<h3 style ='text-align: center; color:black;'>Bienes que son Robados en las residencias</h1>", unsafe_allow_html =True)
+    
     R4=residencia.groupby(['bien'])[['cantidad']].count().reset_index()
     fig= px.bar(R4, x='bien', y='cantidad', width=400, height= 400)
     fig.update_layout(
-    xaxis_title='Bien hurtado',
+    xaxis_title='Bien',
     yaxis_title='Cantidad',
     template= 'simple_white',
     paper_bgcolor='rgba(0,0,0,0)',
@@ -709,40 +699,40 @@ elif menu== "Hurto a residencia🏡":
     c31.markdown('                                     ')
     c31.markdown('                                     ')
     c31.markdown('                                     ')
-    c31.info('Podemos observar que los bienes mas hurtados en las residencias son los equipos tecnologicos y el dinero,dado que los equipos tencologicos por lo general son de gran valor en el mercado de lo usado,lo cual genera que se presenten mas hurtos en residencias.')
+    c31.info('Podemos observar que los bienes mas robados en las residencias son los equipos tecnologicos y el dinero,dado que los equipos tencologicos por lo general son de gran valor en el mercado de lo usado,lo cual genera que se presenten mas robos en residencias.')
     
     
     
 
     
     #GRAFICAMOS SI LA CANTIDAD DE HURTOS TIENE RELACION CON LA EDAD 
-    st.markdown("<h3 style ='text-align: center; color:black;'>Edad VS Cantidad de hurtos a residencias</h1>", unsafe_allow_html =True)
+    st.markdown("<h3 style ='text-align: center; color:black;'>Edad VS Cantidad de robos a residencias</h1>", unsafe_allow_html =True)
     R5=residencia.groupby(['edad'])[['cantidad']].sum().reset_index()
-    fig = px.scatter(R5, x = 'edad', y ='cantidad', title = '<b>Edad vs Cantidad de hurtos a residencias<b>',width=950, height= 550)
+    fig = px.scatter(R5, x = 'edad', y ='cantidad', title = '<b>Edad vs Cantidad de robos a residencias<b>',width=950, height= 550)
     fig.update_layout(
     xaxis_title = '<b>Edad<b>',
-    yaxis_title = '<b>Cantidad de hurtos<b>',
+    yaxis_title = '<b>Cantidad de robos<b>',
     template = 'simple_white',
     title_x = 0.5,)
     st.plotly_chart(fig)
-    st.info('Se realiza un analisis de la edad con respecto a la cantidad de hurtos a las residencias para conocer si hay una correlacion estre estas variables y determinar si la edad es un factor relevante en los hurtos, se encuentra que  es un factor relevante ya que a medida de aumenta la edad dismunuyen los hurtos, encontrando un pico en las edades de los 25 a los 40 años,esto podria deberse a que en estas edades las personas socialmente estan en una etapa productiva de la vida por la cual pasan la mayor parte de tiempo en los trabajo, lo cual da una oportunidad mayor para que se presenten los hurtos. ')
+    st.info('Se realiza un analisis de la edad con respecto a la cantidad de robos a las residencias para conocer si hay una correlacion estre estas variables y determinar si la edad es un factor relevante en los hurtos, se encuentra que  es un factor relevante ya que a medida de aumenta la edad dismunuyen los robos, encontrando un pico en las edades de los 25 a los 40 años,esto podria deberse a que en estas edades las personas socialmente estan en una etapa productiva de la vida por la cual pasan la mayor parte de tiempo en los trabajo, lo cual da una oportunidad mayor para que se presenten los robos. ')
     
     
     
     
     
     #GRAFICO CANTIDAD DE HURTO POR SEXO
-    st.markdown("<h3 style ='text-align: center; color:black;'>Cantidad de hurtos a residencia por sexo</h1>", unsafe_allow_html =True)
+    st.markdown("<h3 style ='text-align: center; color:black;'>Cantidad de robos a residencia por sexo</h1>", unsafe_allow_html =True)
     R6=residencia.groupby(['sexo'])[['cantidad']].count().reset_index()
     cantidad=carro['cantidad'].count() 
-    fig=px.pie(R6, values='cantidad', names='sexo',hole=.5,title='% de hurtos por sexo')
+    fig=px.pie(R6, values='cantidad', names='sexo',hole=.5,title='% de robos por sexo')
     fig.update_layout(
     template= 'simple_white', 
     legend_title='Sexo', 
     title_x=0.5, 
     annotations = [dict(text = str(cantidad), x=0.5, y = 0.5, font_size = 40, showarrow = False )])
     st.plotly_chart(fig)
-    st.info('Se analiza el sexo de las personas victimas de hurto y se encuentra que no existe relacion en la edad de las personas.')
+    st.info('Se analiza el sexo de las personas victimas de robo y se encuentra que no existe relacion en la edad de las personas.')
     
     
     
